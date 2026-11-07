@@ -1,0 +1,53 @@
+<!-- ===== ASK A QUESTION FORM =====
+     Member B writes this. Member A pastes it inside expert.html
+     (for example under the expert's profile card).
+
+     Also add these two scripts at the bottom of expert.html, AFTER Bootstrap:
+       <script src="js/data.js"></script>   (only once, A probably has it already)
+       <script src="js/ask.js"></script>
+-->
+
+<div class="card mt-4">
+  <div class="card-body">
+    <h4 class="card-title">Ask this expert a question</h4>
+
+    <!-- Hidden until the question is saved (d-none = display: none) -->
+    <div id="successMessage" class="alert alert-success d-none">
+      Your question was sent! You can follow it in your <a href="dashboard.html">dashboard</a>.
+    </div>
+
+    <!-- novalidate: we show our own error messages instead of the browser's -->
+    <form id="askForm" novalidate>
+
+      <div class="mb-3">
+        <label for="questionText" class="form-label">Your question</label>
+        <textarea id="questionText" class="form-control" rows="4"
+                  placeholder="Describe your concern (at least 15 characters)"></textarea>
+        <!-- Bootstrap shows this only when the textarea has the "is-invalid" class -->
+        <div class="invalid-feedback">Please write at least 15 characters.</div>
+      </div>
+
+      <div class="mb-3">
+        <div class="form-label">Who can see this question?</div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="visibility"
+                 id="visPublic" value="public" checked>
+          <label class="form-check-label" for="visPublic">
+            Public: others can read the question and answer
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="visibility"
+                 id="visPrivate" value="private">
+          <label class="form-check-label" for="visPrivate">
+            Private: only you and the expert
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-main">Send question</button>
+    </form>
+  </div>
+</div>

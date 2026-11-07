@@ -1,0 +1,63 @@
+/* ===== Member B styles =====
+   Bootstrap does most of the styling. This file only adds
+   our team colors and a few small custom classes. */
+
+:root {
+  --main-color: #0d7c8f;   /* teal used for buttons and links */
+  --dark-color: #0a5f6e;   /* darker teal for hover */
+  --light-color: #e3f2f5;  /* very light teal for boxes */
+}
+
+body {
+  background-color: #f4f8fa;
+}
+
+.navbar-brand {
+  color: var(--main-color) !important;
+  font-weight: 700;
+}
+
+/* Big colored banner at the top of the home page */
+.hero {
+  background-color: var(--main-color);
+  color: white;
+  padding: 60px 0;
+  text-align: center;
+}
+
+/* Our own button color (Bootstrap's blue does not match our theme) */
+.btn-main {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+}
+.btn-main:hover {
+  background-color: var(--dark-color);
+  color: white;
+}
+
+/* Round circle that shows the expert's initials */
+.expert-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--light-color);
+  color: var(--main-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* The expert's answer inside a question card */
+.answer-box {
+  background-color: var(--light-color);
+  border-left: 4px solid var(--main-color);
+  padding: 10px 14px;
+  border-radius: 6px;
+}
+
+.stars {
+  color: #f0a30a;
+}
