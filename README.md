@@ -7,11 +7,11 @@ A full-stack web app that connects users with medical experts from different spe
 
 ## Tech stack (required by the course)
 
-| Layer | Technology |
-|---|---|
+| Layer     | Technology                                                      |
+| --------- | --------------------------------------------------------------- |
 | Front-end | HTML, CSS, JavaScript, Bootstrap (responsive: desktop + mobile) |
-| Back-end | Node.js + Express |
-| Database | MySQL (with proper relationships) |
+| Back-end  | Node.js + Express                                               |
+| Database  | MySQL (with proper relationships)                               |
 
 Client-side **and** server-side input validation are both required.
 
@@ -33,10 +33,10 @@ Client-side **and** server-side input validation are both required.
 
 ## Milestones
 
-| Date | Deliverable |
-|---|---|
-| **Wed 4 Nov 2026** | Front-end demo with sample data (no back-end needed) |
-| Final | Working full app + this README as a navigation guide, 3-minute video, 5–6 page report |
+| Date               | Deliverable                                                                           |
+| ------------------ | ------------------------------------------------------------------------------------- |
+| **Wed 4 Nov 2026** | Front-end demo with sample data (no back-end needed)                                  |
+| Final              | Working full app + this README as a navigation guide, 3-minute video, 5–6 page report |
 
 The report must cover: app description, features and use cases, the two additional features, back-end processing and implementation details, database schema, and each member's contribution.
 
@@ -52,10 +52,10 @@ docs/       report, diagrams, video link
 ## Team
 
 | Name | Role / main contributions |
-|---|---|
-| | |
-| | |
-| | |
+| ---- | ------------------------- |
+|      |                           |
+|      |                           |
+|      |                           |
 
 ## Notes
 
