@@ -10,62 +10,31 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="CSS_FILE.css" />
+    <link rel="stylesheet" href="b.css" />
 
     <script src="login.js" defer></script>
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <h1 class="navbar-brand">MedExpert Q&A</h1>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+    <nav class="navbar navbar-expand-md bg-white border-bottom">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">🩺 MedExpert Q&A</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.html">Log in</a>
-            </li>
+        <div class="collapse navbar-collapse" id="menu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="experts_page.html">Experts</a></li>
+            <li class="nav-item"><a class="nav-link" href="questions.html">Q&amp;A</a></li>
+            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link active" href="login.html">Log in</a></li>
             <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Register
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="patient_registration.html"
-                    >Patient</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" href="expert_registration.html"
-                    >Expert</a
-                  >
-                </li>
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Register</a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="patient_registration.html">Patient</a></li>
+                <li><a class="dropdown-item" href="expert_registration.html">Expert</a></li>
               </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="questions.html">Public Q&A</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="experts_page.html">Experts</a>
             </li>
           </ul>
         </div>
