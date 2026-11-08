@@ -143,7 +143,7 @@ function makeQuestionCard(question) {
         <h5 class="mt-2">${escapeHtml(question.text)}</h5>
         <div class="answer-box mt-3">
           <div class="small text-muted mb-1">
-            Answered by <a href="expert.html?id=${expert.id}">${expert.name}</a>
+            Answered by <a href="experts_page.html">${expert.name}</a>
           </div>
           ${escapeHtml(question.answer)}
         </div>

@@ -24,7 +24,7 @@ function makeExpertCard(expert) {
                <span class="text-muted small">(${expert.ratingCount})</span></div>
         </div>
         <div class="card-footer bg-white border-0">
-          <a href="expert.html?id=${expert.id}" class="btn btn-main btn-sm">View profile</a>
+          <a href="experts_page.html" class="btn btn-main btn-sm">View profile</a>
         </div>
       </div>
     </div>`;
@@ -64,5 +64,5 @@ document.getElementById("recentQuestions").innerHTML = questionsHtml;
 document.getElementById("searchForm").addEventListener("submit", function (event) {
   event.preventDefault();   // stop the browser from reloading the page
   const text = document.getElementById("searchInput").value.trim();
-  window.location.href = "experts.html?search=" + encodeURIComponent(text);
+  window.location.href = "experts_page.html?search=" + encodeURIComponent(text);
 });

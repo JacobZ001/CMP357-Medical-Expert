@@ -40,7 +40,7 @@ loginForm.addEventListener("submit", function (event) {
       loginForm.after(message);
 
       setTimeout(function () {
-        window.location.href = "";
+        window.location.href = "dashboard.html";
       }, 2000);
     } else {
       let message = document.createElement("div");
