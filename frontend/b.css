@@ -1,6 +1,4 @@
-/* ===== Member B styles =====
-   Bootstrap does most of the styling. This file only adds
-   our team colors and a few small custom classes. */
+/* This file only adds our team colors and a few small custom classes */
 
 :root {
   --main-color: #0d7c8f;   /* teal used for buttons and links */
@@ -17,7 +15,6 @@ body {
   font-weight: 700;
 }
 
-/* Big colored banner at the top of the home page */
 .hero {
   background-color: var(--main-color);
   color: white;
@@ -25,7 +22,7 @@ body {
   text-align: center;
 }
 
-/* Our own button color (Bootstrap's blue does not match our theme) */
+/* Our own button color */
 .btn-main {
   background-color: var(--main-color);
   color: white;

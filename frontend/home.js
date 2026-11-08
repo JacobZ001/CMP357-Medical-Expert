@@ -1,14 +1,12 @@
-/* ===== home.js =====
+/* home.js 
    Fills the home page with data and handles the search box. */
 
-// Get the data (from localStorage, or the sample data on first visit)
+// Getting the data (from localStorage, or the sample data on first visit)
 const experts = getExperts();
 const questions = getQuestions();
 
+// Top-rated experts
 
-/* ---------- STEP 1: Top-rated experts ---------- */
-
-// Builds the HTML for one expert card
 function makeExpertCard(expert) {
   return `
     <div class="col">
@@ -45,7 +43,7 @@ for (const expert of sortedExperts.slice(0, 3)) {
 document.getElementById("topExperts").innerHTML = expertsHtml;
 
 
-/* ---------- STEP 2: Recently answered questions ---------- */
+// Recently answered questions
 
 // Keep only questions that are public AND already have an answer
 const answeredQuestions = questions.filter(function (q) {
@@ -54,12 +52,12 @@ const answeredQuestions = questions.filter(function (q) {
 
 let questionsHtml = "";
 for (const q of answeredQuestions.slice(0, 3)) {
-  questionsHtml += makeQuestionCard(q);   // this helper lives in data.js
+  questionsHtml += makeQuestionCard(q);   // this helper is in data.js
 }
 document.getElementById("recentQuestions").innerHTML = questionsHtml;
 
 
-/* ---------- STEP 3: Search box ---------- */
+// Search box 
 
 // When the form is submitted, go to the Experts page and pass the text in the URL.
 // (Member A's experts.js should read "search" from the URL and fill the search box.)

@@ -1,7 +1,5 @@
-/* ===== questions.js =====
-   Shows all answered public questions and lets the user search and filter them. */
+// questions.js shows all answered public questions and lets the user search and filter them
 
-// Grab the HTML elements we need (using their id)
 const searchBox = document.getElementById("searchBox");
 const specialtyFilter = document.getElementById("specialtyFilter");
 const questionList = document.getElementById("questionList");
@@ -11,9 +9,6 @@ const experts = getExperts();
 const questions = getQuestions();
 
 
-/* ---------- STEP 1: Fill the specialty dropdown ---------- */
-
-// Collect each specialty only once (several experts may share one)
 const specialties = [];
 for (const expert of experts) {
   if (!specialties.includes(expert.specialty)) {
@@ -21,7 +16,6 @@ for (const expert of experts) {
   }
 }
 
-// Create one <option> for each specialty and add it to the dropdown
 for (const specialty of specialties) {
   const option = document.createElement("option");
   option.value = specialty;
@@ -29,9 +23,7 @@ for (const specialty of specialties) {
   specialtyFilter.appendChild(option);
 }
 
-
-/* ---------- STEP 2: Show the questions that match the search ---------- */
-
+// Showing the questions that match the search 
 function showQuestions() {
   const searchText = searchBox.value.toLowerCase();   // lowercase so "Heart" = "heart"
   const chosenSpecialty = specialtyFilter.value;      // "" means "All specialties"
@@ -47,12 +39,11 @@ function showQuestions() {
 
     const expert = findExpert(question.expertId);
 
-    // Does the question or the answer contain the search text?
     const matchesText = (question.text + " " + question.answer)
       .toLowerCase()
       .includes(searchText);
 
-    // Is it the chosen specialty (or no specialty chosen)?
+    // Checks if the specialty is chosen
     const matchesSpecialty = chosenSpecialty === "" || expert.specialty === chosenSpecialty;
 
     // Only show it if BOTH are true
@@ -69,9 +60,6 @@ function showQuestions() {
   questionList.innerHTML = html;
   resultCount.textContent = count + " question(s) found";
 }
-
-
-/* ---------- STEP 3: Run it ---------- */
 
 // Run again every time the user types or changes the dropdown
 searchBox.addEventListener("input", showQuestions);

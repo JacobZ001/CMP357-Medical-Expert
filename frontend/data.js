@@ -1,12 +1,12 @@
-/* ===== data.js =====
-   Shared by ALL pages. It does three things:
+/* data.js
+   Shared by all pages. It does three things:
    1. Holds the sample data (experts and questions).
    2. Saves and loads data using localStorage, so changes on one page
       show up on the other pages (no back-end needed).
    3. Has small helper functions used everywhere. */
 
 
-/* ---------- 1. SAMPLE DATA ---------- */
+// Sample Data
 
 const defaultExperts = [
   { id: 1, name: "Dr. Layla Haddad", specialty: "Cardiology",
@@ -35,7 +35,7 @@ const defaultExperts = [
     ratingSum: 83, ratingCount: 18 }
 ];
 
-/* Every question has these fields (Member C also reads them!):
+/* Every question has these fields:
    id, expertId, userName, text, answer, isPublic, rating, date
    - answer is "" while the expert has not replied yet
    - rating is 0 until the user rates the answer (1 to 5)
@@ -70,11 +70,10 @@ const defaultQuestions = [
 ];
 
 
-/* ---------- 2. SAVING AND LOADING (localStorage) ---------- */
+// Saving and loading (localStorage)
 
 // localStorage can only store text, so we convert with JSON.stringify
 // (object -> text) and JSON.parse (text -> object).
-
 function loadData(key, defaultValue) {
   const savedText = localStorage.getItem(key);
   if (savedText) {
@@ -94,7 +93,7 @@ function getQuestions()        { return loadData("questions", defaultQuestions);
 function saveQuestions(list)   { saveData("questions", list); }
 
 
-/* ---------- 3. HELPER FUNCTIONS ---------- */
+// Helper functions
 
 // Find one expert using their id
 function findExpert(id) {
@@ -102,7 +101,7 @@ function findExpert(id) {
   return experts.find(function (expert) { return expert.id === id; });
 }
 
-// Average rating, for example 92 / 20 = 4.6
+// Average rating, e.g. 92 / 20 = 4.6
 function getAverageRating(expert) {
   return Number((expert.ratingSum / expert.ratingCount).toFixed(1));
 }
