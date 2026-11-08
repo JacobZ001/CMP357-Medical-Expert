@@ -22,8 +22,7 @@ askForm.addEventListener("submit", function (event) {
   questionText.classList.remove("is-invalid");
 
   // Read the public/private choice 
-  const chosenRadio = document.querySelector('input[name="visibility"]:checked');
-  const isPublic = chosenRadio.value === "public";   // true or false
+  const isPublic = document.getElementById("visibility").value === "public";   // true or false
 
   // Builds the new question object
   const newQuestion = {
