@@ -1,0 +1,82 @@
+// ===== schema.prisma =====
+// Each "model" becomes one MySQL table. Each field becomes a column.
+// A field like "asker User @relation(...)" is a relationship (foreign key).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ----- Member A owns: User, ExpertProfile, SavedExpert -----
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String   @db.VarChar(80)
+  email        String   @unique @db.VarChar(120)
+  passwordHash String   @db.VarChar(100)   // NEVER store the real password
+  role         String   @db.VarChar(10)    // "user" or "expert"
+  createdAt    DateTime @default(now())
+
+  // Relations (these are not columns, they let Prisma join tables for us)
+  expertProfile     ExpertProfile?          // only experts have one
+  questionsAsked    Question[]     @relation("Asker")
+  questionsReceived Question[]     @relation("Expert")
+  savedExperts      SavedExpert[]  @relation("SavedByUser")
+  savedByOthers     SavedExpert[]  @relation("SavedExpertRef")
+  notifications     Notification[]
+}
+
+model ExpertProfile {
+  userId         Int    @id               // same number as the expert's User.id
+  specialty      String @db.VarChar(60)
+  qualifications String @db.VarChar(200)
+  bio            String @db.Text
+  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SavedExpert {
+  userId   Int
+  expertId Int
+  user     User @relation("SavedByUser", fields: [userId], references: [id], onDelete: Cascade)
+  expert   User @relation("SavedExpertRef", fields: [expertId], references: [id], onDelete: Cascade)
+
+  @@id([userId, expertId])                // one user can save an expert only once
+  @@index([expertId])
+}
+
+// ----- Member B owns: Question -----
+
+model Question {
+  id         Int       @id @default(autoincrement())
+  text       String    @db.Text
+  answer     String?   @db.Text            // "?" means optional: NULL until the expert replies
+  isPublic   Boolean   @default(true)
+  rating     Int?                          // NULL until the asker rates the answer (1 to 5)
+  createdAt  DateTime  @default(now())
+  answeredAt DateTime?
+  askerId    Int
+  expertId   Int
+  asker      User      @relation("Asker", fields: [askerId], references: [id], onDelete: Cascade)
+  expert     User      @relation("Expert", fields: [expertId], references: [id], onDelete: Cascade)
+
+  @@index([askerId])
+  @@index([expertId])
+}
+
+// ----- Member C owns: Notification -----
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  message   String   @db.VarChar(255)
+  link      String?  @db.VarChar(120)
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}

@@ -1,0 +1,46 @@
+<%# The "ask a question" form. It needs the variable "expert".
+    These are optional: locals.error, locals.oldText, locals.sent
+    (writing locals.x gives undefined instead of crashing when x was not passed in).
+    Member A can add this form to the expert profile page with the include line
+    shown in the walkthrough. %>
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Ask <%= expert.name %> a question</h4>
+
+    <% if (locals.sent) { %>
+      <div class="alert alert-success">
+        Your question was sent! You can follow it in your <a href="/dashboard">dashboard</a>.
+      </div>
+    <% } %>
+
+    <% if (locals.error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <form action="/questions" method="post">
+      <%# hidden field: tells the server WHICH expert this question is for %>
+      <input type="hidden" name="expertId" value="<%= expert.id %>">
+
+      <div class="mb-3">
+        <label for="text" class="form-label">Your question</label>
+        <textarea id="text" name="text" class="form-control" rows="4" required minlength="15"
+                  placeholder="Describe your concern (at least 15 characters)"><%= locals.oldText || '' %></textarea>
+      </div>
+
+      <div class="mb-3">
+        <div class="form-label">Who can see this question?</div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="visibility" id="visPublic" value="public" checked>
+          <label class="form-check-label" for="visPublic">Public: others can read the question and answer</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="visibility" id="visPrivate" value="private">
+          <label class="form-check-label" for="visPrivate">Private: only you and the expert</label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-main">Send question</button>
+    </form>
+  </div>
+</div>
