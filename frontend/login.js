@@ -15,7 +15,7 @@ let users = [
 
 let loginForm = document.querySelector("form");
 
-loginForm.addEventListener("submit", function (event) {
+loginForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
   let email = document.getElementById("exampleFormControlInput1").value;
@@ -28,24 +28,45 @@ loginForm.addEventListener("submit", function (event) {
 
     loginForm.after(message);
   } else {
-    let user = users.find(function (u) {
-      return u.email === email && u.password === password;
-    });
+    try {
+      const response = await fetch("http://127.0.0.1:3000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
 
-    if (user) {
-      let message = document.createElement("div");
-      message.className = "alert alert-success mt-3";
-      message.textContent = "Login successful! Welcome to MedExpert Q&A.";
+      const data = await response.json();
 
-      loginForm.after(message);
+      if (response.ok) {
+        let message = document.createElement("div");
+        message.className = "alert alert-success mt-3";
+        message.textContent = "Login successful! Welcome to MedExpert Q&A.";
 
-      setTimeout(function () {
-        window.location.href = "dashboard.html";
-      }, 2000);
-    } else {
+        loginForm.after(message);
+
+        setTimeout(function () {
+          window.location.href = "dashboard.html";
+        }, 2000);
+      } else {
+        let message = document.createElement("div");
+        message.className = "alert alert-danger mt-3";
+        message.textContent = data.message || "Incorrect email or password!";
+
+        loginForm.after(message);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+
       let message = document.createElement("div");
       message.className = "alert alert-danger mt-3";
-      message.textContent = "Incorrect email or password!";
+      message.textContent =
+        "Unable to connect to the server. Please try again.";
 
       loginForm.after(message);
     }

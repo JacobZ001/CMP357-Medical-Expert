@@ -1,6 +1,6 @@
 let registerForm = document.querySelector("form");
 
-registerForm.addEventListener("submit", function (event) {
+registerForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
   let firstName = document.getElementById("validationCustom01").value;
@@ -34,11 +34,47 @@ registerForm.addEventListener("submit", function (event) {
 
     registerForm.after(message);
   } else {
-    let message = document.createElement("div");
-    message.className = "alert alert-success mt-3";
-    message.textContent =
-      "Your account has been created successfully! Welcome to MedExpert Q&A.";
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:3000/api/auth/register/patient",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+          }),
+        },
+      );
 
-    registerForm.after(message);
+      const data = await response.json();
+
+      if (response.ok) {
+        let message = document.createElement("div");
+        message.className = "alert alert-success mt-3";
+        message.textContent = data.message;
+
+        registerForm.after(message);
+      } else {
+        let message = document.createElement("div");
+        message.className = "alert alert-danger mt-3";
+        message.textContent = data.message;
+
+        registerForm.after(message);
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+
+      let message = document.createElement("div");
+      message.className = "alert alert-danger mt-3";
+      message.textContent =
+        "Unable to connect to the server. Please try again.";
+
+      registerForm.after(message);
+    }
   }
 });

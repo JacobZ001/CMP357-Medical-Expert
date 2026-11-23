@@ -1,6 +1,6 @@
 let registerForm = document.querySelector("form");
 
-registerForm.addEventListener("submit", function (event) {
+registerForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
   let firstName = document.getElementById("validationCustom01").value;
@@ -30,12 +30,6 @@ registerForm.addEventListener("submit", function (event) {
     message.textContent = "Please enter a valid email address.";
 
     registerForm.after(message);
-  } else if (specialty === "") {
-    let message = document.createElement("div");
-    message.className = "alert alert-danger mt-3";
-    message.textContent = "Please select your medical specialty.";
-
-    registerForm.after(message);
   } else if (password.length < 8 || password.length > 20) {
     let message = document.createElement("div");
     message.className = "alert alert-danger mt-3";
@@ -49,11 +43,49 @@ registerForm.addEventListener("submit", function (event) {
 
     registerForm.after(message);
   } else {
-    let message = document.createElement("div");
-    message.className = "alert alert-success mt-3";
-    message.textContent =
-      "Your expert registration was successful! Welcome to MedExpert Q&A.";
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:3000/api/auth/register/expert",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+            specialty: specialty,
+            qualifications: qualifications,
+          }),
+        },
+      );
 
-    registerForm.after(message);
+      const data = await response.json();
+
+      if (response.ok) {
+        let message = document.createElement("div");
+        message.className = "alert alert-success mt-3";
+        message.textContent = data.message;
+
+        registerForm.after(message);
+      } else {
+        let message = document.createElement("div");
+        message.className = "alert alert-danger mt-3";
+        message.textContent = data.message;
+
+        registerForm.after(message);
+      }
+    } catch (error) {
+      console.error("Expert registration error:", error);
+
+      let message = document.createElement("div");
+      message.className = "alert alert-danger mt-3";
+      message.textContent =
+        "Unable to connect to the server. Please try again.";
+
+      registerForm.after(message);
+    }
   }
 });

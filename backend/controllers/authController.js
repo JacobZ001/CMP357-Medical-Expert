@@ -147,8 +147,21 @@ async function loginUser(req, res) {
   }
 }
 
+async function getCurrentUser(req, res) {
+  if (!req.session.user) {
+    return res.status(401).json({
+      message: "You are not logged in.",
+    });
+  }
+
+  return res.status(200).json({
+    user: req.session.user,
+  });
+}
+
 module.exports = {
   registerPatient,
   registerExpert,
   loginUser,
+  getCurrentUser,
 };

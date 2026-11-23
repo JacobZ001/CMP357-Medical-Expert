@@ -10,4 +10,6 @@ router.post("/register/expert", authController.registerExpert);
 
 router.post("/login", authController.loginUser);
 
+router.get("/me", authController.getCurrentUser);
+
 module.exports = router;
