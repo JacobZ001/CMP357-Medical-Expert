@@ -1,0 +1,37 @@
+<%- include('partials/header', { title: 'Answered Questions' }) %>
+
+  <div class="container my-4">
+    <h1 class="mb-1">Answered public questions</h1>
+    <p class="text-muted">Search what other people have already asked.</p>
+
+    <%# Search form. method="get" puts the values in the URL, so a search can be bookmarked or shared %>
+    <form action="/questions" method="get" class="row g-2 mb-3">
+      <div class="col-12 col-md-6">
+        <input type="text" name="search" value="<%= search %>" class="form-control"
+               placeholder="Search questions or answers">
+      </div>
+      <div class="col-12 col-md-4">
+        <select name="specialty" class="form-select">
+          <option value="">All specialties</option>
+          <% specialties.forEach(function (s) { %>
+            <option value="<%= s %>" <%= s === specialty ? 'selected' : '' %>><%= s %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="col-12 col-md-2">
+        <button type="submit" class="btn btn-main w-100">Search</button>
+      </div>
+    </form>
+
+    <p class="text-muted small"><%= questions.length %> question(s) found</p>
+
+    <% if (questions.length === 0) { %>
+      <div class="alert alert-secondary">No questions found. Try a different search.</div>
+    <% } %>
+
+    <% questions.forEach(function (q) { %>
+      <%- include('partials/question_card', { q: q }) %>
+    <% }); %>
+  </div>
+
+<%- include('partials/footer') %>

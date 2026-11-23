@@ -1,0 +1,39 @@
+<%- include('partials/header', { title: 'MedExpert Q&A - Home' }) %>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Trusted answers from real medical experts</h1>
+      <p class="lead">Find a specialist, ask your question, and learn from answered questions.</p>
+
+      <%# GET form: the text is added to the URL, e.g. /experts?search=heart (Member A reads req.query.search) %>
+      <form action="/experts" method="get" class="row g-2 justify-content-center mt-4">
+        <div class="col-12 col-md-6">
+          <input type="text" name="search" class="form-control form-control-lg"
+                 placeholder="Search by name or specialty">
+        </div>
+        <div class="col-12 col-md-auto">
+          <button type="submit" class="btn btn-light btn-lg w-100">Find an expert</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <div class="container my-5">
+    <h2 class="mb-4">Top-rated experts</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <% topExperts.forEach(function (expert) { %>
+        <%- include('partials/expert_card', { expert: expert }) %>
+      <% }); %>
+    </div>
+
+    <h2 class="mt-5 mb-4">Recently answered questions</h2>
+    <% if (recentQuestions.length === 0) { %>
+      <p class="text-muted">No answered questions yet.</p>
+    <% } %>
+    <% recentQuestions.forEach(function (q) { %>
+      <%- include('partials/question_card', { q: q }) %>
+    <% }); %>
+    <a href="/questions" class="btn btn-outline-secondary">See all questions</a>
+  </div>
+
+<%- include('partials/footer') %>
