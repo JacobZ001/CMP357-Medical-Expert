@@ -92,4 +92,4 @@ Five tables (see `backend/prisma/schema.prisma`): `User` (users and experts, wit
 
 - Bootstrap 5.3 (CDN), Prisma, EJS, express-session, bcryptjs
 - Course lectures 16 and 17 (Prisma + Express, EJS)
-- Claude (Anthropic) was used as a coding assistant and tutor during the project
+- Claude (Anthropic) was used for front end UI design and system design tutor during the project
