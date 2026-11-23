@@ -21,6 +21,7 @@
     </div>
     <div class="card-footer bg-white border-0">
       <a href="/experts/<%= expert.id %>" class="btn btn-main btn-sm">View profile</a>
+      <%- include('save_button', { expertId: expert.id }) %>
     </div>
   </div>
 </div>

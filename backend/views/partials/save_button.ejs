@@ -1,0 +1,11 @@
+<%# Save / unsave an expert (Jacob, extra feature 1). Needs a variable "expertId".
+    Only regular users see it. savedExpertIds comes from middleware/userExtras.js
+    Usage in a view:  include('partials/save_button', { expertId: expert.id }) %>
+<% if (locals.currentUser && currentUser.role === 'user') { %>
+  <% const isSaved = savedExpertIds.includes(expertId); %>
+  <form action="/saved/<%= expertId %>" method="post" class="d-inline">
+    <button type="submit" class="btn btn-sm <%= isSaved ? 'btn-danger' : 'btn-outline-danger' %>">
+      <%= isSaved ? '♥ Saved' : '♡ Save' %>
+    </button>
+  </form>
+<% } %>

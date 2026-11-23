@@ -28,6 +28,7 @@ app.use(function (req, res, next) {
   res.locals.currentUser = req.session.user || null;   // lets the navbar show Login or Logout
   next();
 });
+app.use(require('./middleware/userExtras'));         // Member C: bell count + saved experts for every page
 app.locals.stars = function (n) {                      // stars(4) gives ★★★★☆
   return '★'.repeat(n) + '☆'.repeat(5 - n);
 };
@@ -41,7 +42,6 @@ app.use('/', require('./routes/experts'));     // Member A: expert list and prof
 app.use('/', require('./routes/home'));        // Member B: home page
 app.use('/', require('./routes/questions'));   // Member B: public Q&A and asking questions
 app.use('/', require('./routes/dashboard'));   // Member C: dashboards, answers, ratings, notifications
-app.use('/', require('./routes/dev'));         // TEMPORARY test login. Delete before submitting!
 
 app.listen(port, hostname, function () {
   console.log('Server running at http://' + hostname + ':' + port);
