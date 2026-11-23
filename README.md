@@ -1,67 +1,95 @@
-# Medical Expert Q&A Platform
+# MedExpert Q&A
 
-CMP 357 – Web Application Programming · American University of Sharjah · Fall 2026
-Team project (Project 1 of 3)
+CMP 357 – Web Application Programming, American University of Sharjah, Fall 2026 (Project 1: Medical Expert Q&A Platform)
 
-A full-stack web app that connects users with medical experts from different specialties. Doctors register and build professional profiles; users browse experts, pick one, and ask questions publicly or privately. Public questions and their answers can be read by everyone.
+A web app where users ask medical experts questions (public or private), experts answer them, and anyone can browse the public answers.
 
-## Tech stack (required by the course)
+Built with Node.js + Express, Prisma + MySQL, EJS and Bootstrap.
 
-| Layer     | Technology                                                      |
-| --------- | --------------------------------------------------------------- |
-| Front-end | HTML, CSS, JavaScript, Bootstrap (responsive: desktop + mobile) |
-| Back-end  | Node.js + Express                                               |
-| Database  | MySQL (with proper relationships)                               |
+## How to run
 
-Client-side **and** server-side input validation are both required.
+You need Node.js and MySQL Server 8.4.
 
-## Required features
-
-- [ ] Registration and login for regular users and medical experts
-- [ ] Expert profiles: specialties, qualifications, average rating of previous responses
-- [ ] Browse and search experts by different attributes; submit a question to the chosen expert
-- [ ] User chooses whether a question is public or private
-- [ ] Experts view and respond to questions assigned to them
-- [ ] Browse and search previously answered public questions
-- [ ] Personalized dashboards: users and experts track or delete their questions / responses
-- [ ] Users rate experts' responses
-
-## Additional features (team's choice, at least 2)
-
-- [ ] _TBD_
-- [ ] _TBD_
-
-## Milestones
-
-| Date               | Deliverable                                                                           |
-| ------------------ | ------------------------------------------------------------------------------------- |
-| **Wed 4 Nov 2026** | Front-end demo with sample data (no back-end needed)                                  |
-| Final              | Working full app + this README as a navigation guide, 3-minute video, 5–6 page report |
-
-The report must cover: app description, features and use cases, the two additional features, back-end processing and implementation details, database schema, and each member's contribution.
-
-## Repository structure
+1. In MySQL Workbench run: `CREATE DATABASE medexpert;`
+2. In `backend/`, copy `.env.example` to `.env` and put your MySQL password in `DATABASE_URL`.
+3. In `backend/` run:
 
 ```
-frontend/   static pages, styles, scripts, sample data (milestone demo)
-backend/    Node.js + Express server
-database/   MySQL schema and seed scripts
-docs/       report, diagrams, video link
+npm install
+npx prisma db push
+npm run seed
+npm start
 ```
+
+4. Open http://127.0.0.1:3000
+
+`npm run seed` deletes everything and puts the sample data back, so you can run it again any time.
+
+## Sample accounts
+
+All passwords are `password123`.
+
+| Role | Email |
+|---|---|
+| User | user@example.com (Demo User), ali@example.com, sara.m@example.com |
+| Expert | layla@example.com (Dr. Layla Haddad), omar@example.com, sara@example.com |
+
+## How to navigate
+
+| Page | URL | Who |
+|---|---|---|
+| Home: top-rated experts, latest answers, search box | `/` | everyone |
+| Experts list: search by name / specialty / qualification, filter by specialty and rating | `/experts` | everyone |
+| Expert profile: specialty, qualifications, average rating, public answers | `/experts/:id` | everyone |
+| Public Q&A: search answered public questions | `/questions` | everyone |
+| Register (user or expert), log in, log out | `/register`, `/register/expert`, `/login`, `/logout` | everyone |
+| Ask an expert a question (public or private) | `/ask/:id` (button on the profile) | users |
+| Dashboard | `/dashboard` | logged in |
+
+**User dashboard:** see your questions and their status, rate answers (1–5 stars), delete questions, see saved experts and notifications.
+
+**Expert dashboard:** see questions sent to you, reply (at least 20 characters), delete your answer, see your average rating and notifications.
+
+A quick demo: log in as `user@example.com`, open Dr. Layla Haddad, ask a question, log out, log in as `layla@example.com`, answer it, then log in again as the user to see the notification and rate the answer.
+
+## Features
+
+Required features: registration and login for users and experts, expert profiles with average rating, search experts, ask public or private questions, experts answer, search public answers, dashboards to track and delete, rating answers. Validation is done in the browser (HTML `required`, `minlength`, `type="email"`) and again on the server in every POST route.
+
+Extra features:
+
+1. **Saved experts**: users click "Save" on an expert card or profile; saved experts are listed in the dashboard.
+2. **Notifications**: experts get a notification when someone asks them a question, and users get one when their question is answered. The navbar bell shows the unread count, a pop-up appears while there are unread notifications, and the dashboard lists them.
+
+## Project structure
+
+```
+backend/
+  app.js              starts the server, sessions, routes
+  prisma/             schema.prisma (tables) and seed.js (sample data)
+  routes/             auth.js, experts.js (A) · home.js, questions.js (B) · dashboard.js (C)
+  middleware/         auth.js (login checks), userExtras.js (bell count, saved experts)
+  lib/                prisma.js (one Prisma client), helpers.js (average rating)
+  views/              EJS pages and partials (header, footer, cards, forms)
+  public/css/         style.css
+frontend/             static front-end demo from the first milestone (no back-end)
+docs/                 project description
+```
+
+## Database
+
+Five tables (see `backend/prisma/schema.prisma`): `User` (users and experts, with a role), `ExpertProfile` (one per expert), `Question` (asker, expert, answer, rating), `SavedExpert` (user + expert) and `Notification`.
 
 ## Team
 
-| Name | Role / main contributions |
-| ---- | ------------------------- |
-|      |                           |
-|      |                           |
-|      |                           |
+| Member | Part |
+|---|---|
+| Ayman (A) | Accounts and experts: register, login, experts list, expert profile |
+| Abizar (B) | Home page, public Q&A, asking questions, database schema and seed data |
+| Jacob (C) | Dashboards, answering, rating, deleting, saved experts, notifications |
 
-## Notes
+## External resources
 
-- Grading is individual, through a one-on-one code walkthrough. Every member should understand and be able to explain the code they commit.
-- Acknowledge any external code or resources used (list them below).
-
-### External resources
-
-- _none yet_
+- Bootstrap 5.3 (CDN), Prisma, EJS, express-session, bcryptjs
+- Course lectures 16 and 17 (Prisma + Express, EJS)
+- Claude (Anthropic) was used as a coding assistant and tutor during the project
