@@ -1,0 +1,42 @@
+<%- include('partials/header', { title: 'Register' }) %>
+
+  <div class="container my-5" style="max-width: 550px;">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="h3 mb-3">Create an account</h1>
+
+        <% if (error) { %>
+          <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <form action="/register" method="post">
+          <div class="row g-2 mb-3">
+            <div class="col">
+              <label for="firstName" class="form-label">First name</label>
+              <input id="firstName" name="firstName" class="form-control" value="<%= old.firstName || '' %>" required>
+            </div>
+            <div class="col">
+              <label for="lastName" class="form-label">Last name</label>
+              <input id="lastName" name="lastName" class="form-control" value="<%= old.lastName || '' %>" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-control" value="<%= old.email || '' %>" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" class="form-control" required minlength="8" maxlength="20">
+            <div class="form-text">8 to 20 characters.</div>
+          </div>
+          <button type="submit" class="btn btn-main w-100">Register</button>
+        </form>
+
+        <p class="small text-muted mt-3 mb-0">
+          Are you a doctor? <a href="/register/expert">Register as an expert</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+<%- include('partials/footer') %>

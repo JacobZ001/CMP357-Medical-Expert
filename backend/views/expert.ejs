@@ -1,0 +1,43 @@
+<%- include('partials/header', { title: expert.name }) %>
+
+  <div class="container my-4">
+    <div class="row g-4">
+
+      <div class="col-12 col-lg-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="expert-avatar mx-auto mb-3" style="width: 90px; height: 90px; font-size: 1.8rem;">
+              <%= expert.name.replace('Dr. ', '').split(' ').map(function (w) { return w[0]; }).join('') %>
+            </div>
+            <h1 class="h4 mb-1"><%= expert.name %></h1>
+            <span class="badge bg-light text-dark"><%= expert.expertProfile.specialty %></span>
+            <p class="text-muted mt-3 mb-2"><%= expert.expertProfile.qualifications %></p>
+            <p><%= expert.expertProfile.bio %></p>
+            <p>
+              <% if (expert.ratingCount > 0) { %>
+                <span class="stars"><%= stars(Math.round(expert.avgRating)) %></span>
+                <%= expert.avgRating %> <span class="text-muted small">(<%= expert.ratingCount %> ratings)</span>
+              <% } else { %>
+                <span class="text-muted small">No ratings yet</span>
+              <% } %>
+            </p>
+            <a href="/ask/<%= expert.id %>" class="btn btn-main">Ask a question</a>
+            <%- include('partials/save_button', { expertId: expert.id }) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-8">
+        <h2 class="h4 mb-3">Answered public questions</h2>
+        <% if (answers.length === 0) { %>
+          <p class="text-muted">No public answers yet.</p>
+        <% } %>
+        <% answers.forEach(function (q) { %>
+          <%- include('partials/question_card', { q: q }) %>
+        <% }); %>
+      </div>
+
+    </div>
+  </div>
+
+<%- include('partials/footer') %>
