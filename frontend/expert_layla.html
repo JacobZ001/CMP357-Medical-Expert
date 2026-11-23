@@ -19,21 +19,51 @@
     <nav class="navbar navbar-expand-md bg-white border-bottom">
       <div class="container">
         <a class="navbar-brand" href="index.html">🩺 MedExpert Q&A</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#menu"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="menu">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link active" href="experts_page.html">Experts</a></li>
-            <li class="nav-item"><a class="nav-link" href="questions.html">Q&amp;A</a></li>
-            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link" href="login.html">Log in</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="experts_page.html">Experts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="questions.html">Q&amp;A</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Log in</a>
+            </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Register</a>
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >Register</a
+              >
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="patient_registration.html">Patient</a></li>
-                <li><a class="dropdown-item" href="expert_registration.html">Expert</a></li>
+                <li>
+                  <a class="dropdown-item" href="patient_registration.html"
+                    >Patient</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="expert_registration.html"
+                    >Expert</a
+                  >
+                </li>
               </ul>
             </li>
           </ul>
@@ -45,21 +75,30 @@
       <div class="row">
         <div class="col-sm-4 mb-3 mb-sm-0">
           <div class="card" style="text-align: center">
-            <img src="no_profile.jpg" class="card-img-top" alt="..." />
+            <img
+              src="no_profile.jpg"
+              class="card-img-top"
+              alt="Expert profile"
+            />
 
             <div class="card-body">
-              <h6 class="card-title">Dr. Layla Haddad</h6>
+              <h6 class="card-title" id="expertName">Loading profile...</h6>
 
-              <span class="badge text-bg-primary">Cardiology</span>
+              <span class="badge text-bg-primary" id="expertSpecialty">
+                Loading...
+              </span>
 
               <div class="rating">
-                <span class="stars">★★★★★ 4.6</span><br />
-                <span>20 rated responses</span>
+                <span class="stars" id="expertRating">No ratings yet</span
+                ><br />
+                <span id="ratingCount">0 rated responses</span>
               </div>
 
-              <p class="card-text" style="text-align: center">
-                Heart health,blood pressure and preventive care
+              <p class="card-text" style="text-align: center" id="expertBio">
+                Loading profile information...
               </p>
+
+              <p id="expertQualifications"></p>
 
               <a href="#" class="btn btn-primary">Save Expert</a>
             </div>
@@ -73,41 +112,48 @@
             <div style="padding-left: 10px">
               <!-- Hidden until the question is saved -->
               <div id="successMessage" class="alert alert-success d-none">
-                Your question was sent! You can follow it in your <a href="dashboard.html">dashboard</a>.
+                Your question was sent! You can follow it in your
+                <a href="dashboard.html">dashboard</a>.
               </div>
 
               <form id="askForm" novalidate>
-              <h5>Your question</h5>
+                <h5>Your question</h5>
 
-              <div class="form-floating" style="padding-bottom: 10px">
-                <textarea
-                  class="form-control"
-                  placeholder="Leave a question here"
-                  id="questionText"
-                  style="height: 100px"
-                ></textarea>
+                <div class="form-floating" style="padding-bottom: 10px">
+                  <textarea
+                    class="form-control"
+                    placeholder="Leave a question here"
+                    id="questionText"
+                    style="height: 100px"
+                  ></textarea>
 
-                <label for="questionText">
-                  Describe your concern (at least 15 characters)
-                </label>
-                <div class="invalid-feedback">Please write at least 15 characters.</div>
-              </div>
+                  <label for="questionText">
+                    Describe your concern (at least 15 characters)
+                  </label>
+                  <div class="invalid-feedback">
+                    Please write at least 15 characters.
+                  </div>
+                </div>
 
-              <h5>Visibility</h5>
+                <h5>Visibility</h5>
 
-              <select
-                id="visibility"
-                class="form-select"
-                aria-label="Default select example"
-                style="padding-bottom: 10px"
-              >
-                <option value="public" selected>Public-others can read the answer</option>
-                <option value="private">
-                  Private-others can not read the answer
-                </option>
-              </select>
+                <select
+                  id="visibility"
+                  class="form-select"
+                  aria-label="Default select example"
+                  style="padding-bottom: 10px"
+                >
+                  <option value="public" selected>
+                    Public-others can read the answer
+                  </option>
+                  <option value="private">
+                    Private-others can not read the answer
+                  </option>
+                </select>
 
-              <button type="submit" class="btn btn-primary">Submit Question</button>
+                <button type="submit" class="btn btn-primary">
+                  Submit Question
+                </button>
               </form>
             </div>
           </div>
