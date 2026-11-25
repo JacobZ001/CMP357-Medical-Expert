@@ -1,0 +1,44 @@
+<%- include('partials/header', { title: 'Experts' }) %>
+
+  <div class="container my-4">
+    <h1 class="mb-1">Find an expert</h1>
+    <p class="text-muted">Search by name, specialty or qualification.</p>
+
+    <form action="/experts" method="get" class="row g-2 mb-3">
+      <div class="col-12 col-md-5">
+        <input type="text" name="search" value="<%= search %>" class="form-control" placeholder="Search experts">
+      </div>
+      <div class="col-6 col-md-3">
+        <select name="specialty" class="form-select">
+          <option value="">All specialties</option>
+          <% specialties.forEach(function (s) { %>
+            <option value="<%= s %>" <%= s === specialty ? 'selected' : '' %>><%= s %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="col-6 col-md-2">
+        <select name="minRating" class="form-select">
+          <option value="0">Any rating</option>
+          <option value="4" <%= minRating === 4 ? 'selected' : '' %>>4+ stars</option>
+          <option value="4.5" <%= minRating === 4.5 ? 'selected' : '' %>>4.5+ stars</option>
+        </select>
+      </div>
+      <div class="col-12 col-md-2">
+        <button type="submit" class="btn btn-main w-100">Search</button>
+      </div>
+    </form>
+
+    <p class="text-muted small"><%= experts.length %> expert(s) found</p>
+
+    <% if (experts.length === 0) { %>
+      <div class="alert alert-secondary">No experts found. Try a different search.</div>
+    <% } %>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <% experts.forEach(function (expert) { %>
+        <%- include('partials/expert_card', { expert: expert }) %>
+      <% }); %>
+    </div>
+  </div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,23 @@
+<%# One answered question. Needs a variable called "q" (a question with asker and expert included) %>
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="text-muted small">
+      <%= q.asker.name %> · <%= formatDate(q.createdAt) %> ·
+      <span class="badge bg-light text-dark"><%= q.expert.expertProfile.specialty %></span>
+    </div>
+    <h5 class="mt-2"><%= q.text %></h5>
+    <div class="answer-box mt-3">
+      <div class="small text-muted mb-1">
+        Answered by <a href="/experts/<%= q.expert.id %>"><%= q.expert.name %></a>
+      </div>
+      <%= q.answer %>
+    </div>
+    <div class="mt-2 small">
+      <% if (q.rating) { %>
+        <span class="stars"><%= stars(q.rating) %></span> rated by the asker
+      <% } else { %>
+        Not rated yet
+      <% } %>
+    </div>
+  </div>
+</div>
